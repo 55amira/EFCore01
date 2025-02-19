@@ -44,8 +44,11 @@ namespace Assig01.Enitity
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public int Inst_ID { get; set; }
+        public int ManagerId { get; set; }
 
+        public Instructor?  Manager { get; set; }
         public DateTime HiringDate { get; set; }
+
+       // public List<Instructor>? Instructors { get; set; }
     }
 }

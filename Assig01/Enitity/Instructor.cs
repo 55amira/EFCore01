@@ -65,6 +65,10 @@ namespace Assig01.Enitity
         public int HourRate { get; set; }
 
 
-        public int Dept_ID { get; set; }
+       //public int DepartmentId { get; set; }
+       //
+       //public Department? Department { get; set; }
+
+        public List<Course_Inst>? Courses { get; set; }
     }
 }

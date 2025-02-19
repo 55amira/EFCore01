@@ -21,7 +21,7 @@ namespace Assig01.Configuration
                                                  .HasColumnType("varchar")
                                                           .HasMaxLength(50);
             C.Property(C => C.Duration).IsRequired();
-            C.Property(C => C.Top_ID).IsRequired();
+            C.Property(C => C.TopicId).IsRequired();
         }
     }
 }

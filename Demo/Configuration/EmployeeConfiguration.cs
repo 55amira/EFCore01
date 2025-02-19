@@ -14,7 +14,8 @@ namespace Demo.Configuration
         public void Configure(EntityTypeBuilder<Employee> E)
         {
 
-            E.HasKey(E => E.EmpId);
+            E.HasKey(E => E.Id);
+                E.Property(E => E.Id).ValueGeneratedOnAdd(); 
 
             E.Property(E => E.Name)
                                            .IsRequired()

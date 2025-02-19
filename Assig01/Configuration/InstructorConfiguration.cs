@@ -16,7 +16,7 @@ namespace Assig01.Configuration
             I.HasKey(I => I.Id);
             I.Property(I => I.Name).IsRequired().HasColumnType("nvarchar")
                                                    .HasMaxLength(50);
-            I.Property(I => I.Dept_ID).IsRequired();
+           // I.Property(I => I.DepartmentId).IsRequired();
             I.Property(I => I.Bouns).IsRequired();
             I.Property(I => I.Salary).IsRequired();
             I.Property(I => I.HourRate).IsRequired();

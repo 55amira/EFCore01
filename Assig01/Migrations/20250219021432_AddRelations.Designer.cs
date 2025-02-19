@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assig01.Migrations
 {
     [DbContext(typeof(ItiDbContext))]
-    [Migration("20250214121739_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250219021432_AddRelations")]
+    partial class AddRelations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,27 +46,32 @@ namespace Assig01.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
 
-                    b.Property<int>("Top_ID")
+                    b.Property<int?>("TopicId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Assig01.Enitity.Course_Inst", b =>
                 {
-                    b.Property<int>("Course_Id")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Int_Id")
+                    b.Property<int>("InstructorId")
                         .HasColumnType("int");
 
                     b.Property<string>("evaluate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Course_Id", "Int_Id");
+                    b.HasKey("CourseId", "InstructorId");
+
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Course_Inst");
                 });
@@ -84,7 +89,7 @@ namespace Assig01.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDAtE()");
 
-                    b.Property<int>("Inst_ID")
+                    b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -92,7 +97,14 @@ namespace Assig01.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar");
 
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Departments");
                 });
@@ -107,9 +119,6 @@ namespace Assig01.Migrations
 
                     b.Property<double>("Bouns")
                         .HasColumnType("float");
-
-                    b.Property<int>("Dept_ID")
-                        .HasColumnType("int");
 
                     b.Property<int>("HourRate")
                         .HasColumnType("int");
@@ -128,16 +137,18 @@ namespace Assig01.Migrations
 
             modelBuilder.Entity("Assig01.Enitity.Stud_Course", b =>
                 {
-                    b.Property<int>("Course_ID")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.HasKey("Course_ID", "StudId");
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Stud_Course");
                 });
@@ -157,7 +168,8 @@ namespace Assig01.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Dep_Id")
+                    b.Property<int?>("DepartmentId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("FName")
@@ -191,6 +203,81 @@ namespace Assig01.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Topic");
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Course", b =>
+                {
+                    b.HasOne("Assig01.Enitity.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Course_Inst", b =>
+                {
+                    b.HasOne("Assig01.Enitity.Course", null)
+                        .WithMany("Instructors")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Assig01.Enitity.Instructor", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Department", b =>
+                {
+                    b.HasOne("Assig01.Enitity.Instructor", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Assig01.Enitity.Student", null)
+                        .WithMany("Department")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Stud_Course", b =>
+                {
+                    b.HasOne("Assig01.Enitity.Course", null)
+                        .WithMany("Students")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Assig01.Enitity.Student", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Course", b =>
+                {
+                    b.Navigation("Instructors");
+
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Instructor", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("Assig01.Enitity.Student", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }

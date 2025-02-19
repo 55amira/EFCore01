@@ -25,7 +25,7 @@ namespace Assig01.Configuration
             S.Property(S => S.Address).IsRequired(false)
                                                      .HasColumnType("varchar")
                                                      .HasMaxLength(50);
-            S.Property(S => S.Dep_Id).IsRequired();
+            S.Property(S => S.DepartmentId).IsRequired();
         }
     }
 }

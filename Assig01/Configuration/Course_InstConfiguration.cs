@@ -13,7 +13,7 @@ namespace Assig01.Configuration
     {
         public void Configure(EntityTypeBuilder<Course_Inst> C)
         {
-            C.HasKey(C => new { C.Course_Id, C.Int_Id });
+            C.HasKey(C => new { C.CourseId,C.InstructorId});
             C.Property(C => C.evaluate).IsRequired();
         }
     }

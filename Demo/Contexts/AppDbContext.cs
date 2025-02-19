@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,20 @@ namespace Demo.Contexts
             #endregion
 
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.Entity<Employee>().HasOne(E => E.Department)
+            //                               .WithOne(D => D.Manager)
+            //                               .HasForeignKey<Department>(D => D.ManagerId);
+
+            modelBuilder.Entity<Department>().HasOne(D => D.Manager)
+                                             .WithOne(D => D.Department)
+                                             .HasForeignKey<Department>(D => D.ManagerId);
+
+            modelBuilder.Entity<Department>().HasMany( D => D.Employees)
+                                             .WithOne( E => E.WorkFor)
+                                             .HasForeignKey( E => E.WorkForId);
+
+            modelBuilder.Entity<StudentCourse>().HasKey(Sc => new {Sc.StudentId, Sc.CourseId});
 
             base.OnModelCreating(modelBuilder);
         }
@@ -68,6 +83,8 @@ namespace Demo.Contexts
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
     }
 }
