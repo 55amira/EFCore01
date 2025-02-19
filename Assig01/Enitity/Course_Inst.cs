@@ -34,8 +34,8 @@ namespace Assig01.Enitity
 
     internal class Course_Inst
     {
-        public int Int_Id { get; set; }
-        public int Course_Id { get; set; }
+        public int InstructorId { get; set; }
+        public int CourseId { get; set; }
 
         public string evaluate { get; set; }
     }

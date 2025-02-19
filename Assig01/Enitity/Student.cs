@@ -59,6 +59,10 @@ namespace Assig01.Enitity
 
         public int Age { get; set; }
 
-        public int Dep_Id { get; set; }
+        public int? DepartmentId { get; set; }
+        public List<Department>? Department { get; set; }
+
+        public List<Stud_Course>? Courses { get; set; }
+
     }
 }

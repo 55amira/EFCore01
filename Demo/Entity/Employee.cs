@@ -66,11 +66,20 @@ namespace Demo.Entity
 
     class Employee // table
     {
-        public string EmpId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int? Age { get; set; }
         public double Salary { get; set; }
         public string Email { get; set; }
         public DateTime DateOfCreation { get; set; }
+        //  [InverseProperty(nameof(Employee.Department.Manager))]  
+         public Department Department { get; set; }
+
+        public int? WorkForId { get; set; }
+        public Department? WorkFor { get; set; }
+        //public override string ToString()
+        //{
+        //    return $" Id {Id} , Name {Name},Age {Age}";
+        //}
     }
 }

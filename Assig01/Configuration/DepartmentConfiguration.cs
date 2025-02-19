@@ -16,7 +16,7 @@ namespace Assig01.Configuration
             D.HasKey(D => D.Id);
             D.Property(D => D.Name).IsRequired().HasColumnType("nvarchar")
                                                    .HasMaxLength(50);
-            D.Property(D => D.Inst_ID).IsRequired();
+            D.Property(D => D.ManagerId).IsRequired();
             D.Property(D => D.HiringDate).HasDefaultValueSql("GETDAtE()");
         }
     }

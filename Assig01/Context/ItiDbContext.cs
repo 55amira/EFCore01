@@ -86,6 +86,20 @@ namespace Assig01.Context
             modelBuilder.ApplyConfiguration(new TopicConfiguration());
             modelBuilder.ApplyConfiguration(new Course_InstConfiguration());
             modelBuilder.ApplyConfiguration(new Stud_CourseConfiguration());
+
+            modelBuilder.Entity<Stud_Course>().HasKey( SC => new { SC.StudentId, SC.CourseId });
+
+            modelBuilder.Entity<Course_Inst>().HasKey(CI => new { CI.CourseId, CI.InstructorId });
+
+            //modelBuilder.Entity<Department>().HasOne(D => D.Manager)
+            //                                 .WithOne(E => E.Department)
+            //                                 .HasForeignKey<Department>(D => D.ManagerId);
+
+            //modelBuilder.Entity<Department>().HasMany(D => D.Instructors)
+            //                                 .WithOne(I => I.Department)
+            //                                 .HasForeignKey(I => I.DepartmentId);
+                                          
+
             base.OnModelCreating(modelBuilder);
         }
         public ItiDbContext () : base () { }

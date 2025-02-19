@@ -14,7 +14,7 @@ namespace Assig01.Configuration
         public void Configure(EntityTypeBuilder<Stud_Course> SC)
         {
 
-            SC.HasKey(SC => new { SC.Course_ID, SC.StudId });
+            SC.HasKey(SC => new { SC.CourseId, SC.StudentId });
             SC.Property(SC => SC.Grade).IsRequired();
         }
     }

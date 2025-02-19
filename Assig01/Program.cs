@@ -4,9 +4,12 @@ namespace Assig01
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            ItiDbContext context = new ItiDbContext();
+           using ItiDbContext context = new ItiDbContext();
+
+
+            
         }
     }
 }

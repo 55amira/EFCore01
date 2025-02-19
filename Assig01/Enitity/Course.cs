@@ -49,9 +49,13 @@ namespace Assig01.Enitity
     {
         public int Id { get; set; }
 
-        public int Top_ID { get; set; }
+        public int? TopicId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Duration { get; set; }
+
+        public List<Stud_Course>? Students { get; set; }
+        public List<Course_Inst>? Instructors { get; set; }
+        public Topic? Topic { get; set; }
     }
 }
